@@ -15,6 +15,27 @@ function App() {
 
   const [error, setError] = useState<string | null>(null);
 
+  const handleSearch = async () => {
+        if (!searchGame.trim()) return; // Se o input estiver vazio, mata a função aqui
+
+        setLoading(true); // Ativa o sinal de "carregando"
+        setError(null);    // Limpa erros de buscas anteriores
+        setGame(null);     // Limpa o jogo anterior da tela
+
+        try {
+          const response = await fetch(`http://localhost:8000/api/games?name=${searchGame}`);
+          if (!response.ok) {
+            throw new Error("Erro ao buscar o jogo.");
+          }
+          const data = await response.json();
+          setGame(data); // Atualiza o estado com os dados do jogo
+        } catch (err: any) {
+          setError(err.message); // Atualiza o estado de erro
+        } finally {
+          setLoading(false); // Desativa o sinal de "carregando"
+        }
+      };
+      
   return (
     <div className="App">
       <h1>Gaming HUB</h1>
@@ -26,7 +47,7 @@ function App() {
           value={searchGame}
           onChange={(e) => setSearchGame(e.target.value)}
         />
-        <button onClick={() => {}}>Search</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
     </div>
   )
