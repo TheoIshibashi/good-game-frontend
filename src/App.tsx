@@ -49,6 +49,17 @@ function App() {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+      <div className="game-card">
+        {game && (
+          <div>
+            <h2>{game.title}</h2>
+            {game.image && <img src={game.image} alt={game.title} />}
+            <p>
+              <strong>Price:</strong> {game.usd_price ? `$${game.usd_price.toFixed(2)}` : 'N/A'}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
