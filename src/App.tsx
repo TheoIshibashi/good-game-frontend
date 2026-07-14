@@ -16,25 +16,29 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
-        if (!searchGame.trim()) return; // Se o input estiver vazio, mata a função aqui
+        if (!searchGame.trim()) return;
 
-        setLoading(true); // Ativa o sinal de "carregando"
-        setError(null);    // Limpa erros de buscas anteriores
-        setGame(null);     // Limpa o jogo anterior da tela
-
+        setLoading(true);
+        setError(null);    
+        setGame(null);     
         try {
           const response = await fetch(`http://localhost:8000/api/games?name=${searchGame}`);
           if (!response.ok) {
-            throw new Error("Erro ao buscar o jogo.");
+            const errorData = await response.json();
+            throw new Error(errorData.detail);
           }
+
           const data = await response.json();
-          setGame(data); // Atualiza o estado com os dados do jogo
-        } catch (err: any) {
-          setError(err.message); // Atualiza o estado de erro
+          setGame(data); 
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            setError(err.message); 
+          } else {
+              setError("An unexpected error occurred."); 
+          }
         } finally {
-          setLoading(false); // Desativa o sinal de "carregando"
-        }
-      };
+          setLoading(false);
+        };
       
   return (
     <div className="App">
@@ -50,6 +54,14 @@ function App() {
         <button onClick={handleSearch}>Search</button>
       </div>
       <div className="game-card">
+        {loading && (
+          <p>Loading...</p>
+        )}
+
+        {error && (
+          <p className="error">An error occurred: {error}</p>
+        )}
+
         {game && (
           <div>
             <h2>{game.title}</h2>
@@ -62,6 +74,6 @@ function App() {
       </div>
     </div>
   )
+  }
 }
-
-export default App
+export default App;
