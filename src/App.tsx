@@ -43,38 +43,53 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Gaming HUB</h1>
+      <nav>
+        <span>GG</span>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Notícias</a></li>
+            <li><a href="#">Guias</a></li>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Sobre</a></li>
+          </ul>
+      </nav>
 
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search for a game..."
-          value={searchGame}
-          onChange={(e) => setSearchGame(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      <div className="game-card">
-        {loading && (
-          <p>Loading...</p>
-        )}
+      <main>
+        <h1>Gaming HUB</h1>
+        
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search for a game..."
+            value={searchGame}
+            onChange={(e) => setSearchGame(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+        <div className="game-card">
+          {loading && (
+            <p>Loading...</p>
+          )}
 
-        {error && (
-          <p className="error">An error occurred: {error}</p>
-        )}
+          {error && (
+            <p className="error">An error occurred: {error}</p>
+          )}
 
-        {game && (
-          <div>
-            <h2>{game.title}</h2>
-            {game.image && <img src={game.image} alt={game.title} />}
-            <p>
-              <strong>Price:</strong> {game.usd_price ? `$${game.usd_price.toFixed(2)}` : 'N/A'}
-            </p>
-          </div>
-        )}
-      </div>
+          {game && (
+            <div>
+              <h2>{game.title}</h2>
+              {game.image && <img src={game.image} alt={game.title} />}
+              <p>
+                <strong>Price:</strong> {game.usd_price ? `$${game.usd_price.toFixed(2)}` : 'N/A'}
+              </p>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   )
 }
+      
+      
 
 export default App;

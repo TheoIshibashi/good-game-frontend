@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  --ink: #12141a;
+  --surface: #1c1f28;
+  --line: #2a2e39;
+  --text: #e6e8ee;
+  --muted: #8b93a7;
+  --signal: #4f7cff;
+  --gold: #f5b942;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ink);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+.App {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--line);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+nav span {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+nav a:hover {
+  color: var(--text);
+}
+
+main {
+  max-width: 640px;
+  margin: 48px auto 0;
+}
+
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 2.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 48px;
+  color: var(--text);
+}
+
+.search-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+input[type="text"] {
+  flex: 1;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input[type="text"]::placeholder {
+  color: var(--muted);
+}
+
+input[type="text"]:focus {
+  border-color: var(--signal);
+}
+
+button {
+  background-color: var(--signal);
+  color: var(--text);
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+button:hover {
+  filter: brightness(1.15);
+}
