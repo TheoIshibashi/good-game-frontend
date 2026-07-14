@@ -12,34 +12,35 @@ function App() {
   const [searchGame, setSearchGame] = useState<string>("");
   const [game, setGame] = useState<GameData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
-        if (!searchGame.trim()) return;
+    if (!searchGame.trim()) return;
 
-        setLoading(true);
-        setError(null);    
-        setGame(null);     
-        try {
-          const response = await fetch(`http://localhost:8000/api/games?name=${searchGame}`);
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail);
-          }
+    setLoading(true);
+    setError(null);
+    setGame(null);
 
-          const data = await response.json();
-          setGame(data); 
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            setError(err.message); 
-          } else {
-              setError("An unexpected error occurred."); 
-          }
-        } finally {
-          setLoading(false);
-        };
-      
+    try {
+      const response = await fetch(`http://localhost:8000/api/games?name=${searchGame}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail);
+      }
+
+      const data = await response.json();
+      setGame(data);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Gaming HUB</h1>
@@ -74,6 +75,6 @@ function App() {
       </div>
     </div>
   )
-  }
 }
+
 export default App;
