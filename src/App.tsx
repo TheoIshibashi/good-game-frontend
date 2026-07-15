@@ -3,6 +3,7 @@ import './App.css'
 
 
 interface GameData {
+  id: string;
   title: string;
   usd_price: number | null;
   image: string | null;
@@ -10,7 +11,7 @@ interface GameData {
 
 function App() {
   const [searchGame, setSearchGame] = useState<string>("");
-  const [game, setGame] = useState<GameData | null>(null);
+  const [game, setGame] = useState<GameData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +20,7 @@ function App() {
 
     setLoading(true);
     setError(null);
-    setGame(null);
+    setGame([]);
 
     try {
       const response = await fetch(`http://localhost:8000/api/games?name=${searchGame}`);
@@ -56,7 +57,7 @@ function App() {
 
       <main>
         <h1>Gaming HUB</h1>
-        
+
         <div className="search-container">
           <input
             type="text"
@@ -68,22 +69,24 @@ function App() {
         </div>
         <div className="game-card">
           {loading && (
-            <p>Loading...</p>
+            <p className="loading-text">Loading...</p>
           )}
 
           {error && (
             <p className="error">An error occurred: {error}</p>
           )}
 
-          {game && (
-            <div>
-              <h2>{game.title}</h2>
-              {game.image && <img src={game.image} alt={game.title} />}
-              <p>
-                <strong>Price:</strong> {game.usd_price ? `$${game.usd_price.toFixed(2)}` : 'N/A'}
-              </p>
+          {game?.map((g) => (
+            <div className="game-info" key={g.id}>
+              {g.image && <img src={g.image} alt={g.title} />}
+              <div className="game-details">
+                <h2>{g.title}</h2>
+                 <p className="game-price">
+                  {g.usd_price ? `$${g.usd_price.toFixed(2)}` : 'N/A'}
+                </p>
+              </div>
             </div>
-          )}
+          ))}
         </div>
       </main>
     </div>
